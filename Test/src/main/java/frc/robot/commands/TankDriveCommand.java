@@ -29,6 +29,10 @@ public class TankDriveCommand extends Command {
     addRequirements(drivetrain);
   }
 
+  public TankDriveCommand(RomiDrivetrain subsystem, double leftSpeed, double rightSpeed){
+    this(subsystem, ()-> leftSpeed, ()-> rightSpeed);
+  }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -51,4 +55,5 @@ public class TankDriveCommand extends Command {
   public boolean isFinished() {
     return false;
   }
+
 }

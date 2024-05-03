@@ -6,8 +6,12 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.ShooterConstants;
+import frc.robot.commands.SpinShooterCommand;
 import frc.robot.commands.TankDriveCommand;
 import frc.robot.subsystems.RomiDrivetrain;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
@@ -21,6 +25,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final RomiDrivetrain m_romiDrivetrain = new RomiDrivetrain();
   private final Joystick joystick = new Joystick(0);
+  private final Shooter shooter = new Shooter(ShooterConstants.upperID, ShooterConstants.lowerID);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -45,6 +50,9 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new WaitCommand(0);
+    return new SpinShooterCommand(shooter, ShooterConstants.upperSpeed, ShooterConstants.lowerSpeed).withTimeout(3).andThen(new TankDriveCommand(m_romiDrivetrain, DriveConstants.leftSpeed, DriveConstants.rightSpeed).withTimeout(5));
+
   }
+
+
 }
