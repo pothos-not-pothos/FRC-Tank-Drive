@@ -26,5 +26,11 @@ public final class Constants {
         public static final double rightSpeed=-1;
     }
     
+    public static final class IntakeConstants {
+        public static final int motorID=20;
+
+        public static final double intakeSpeed=1;
+    }
+    
 
 }

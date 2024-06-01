@@ -4,12 +4,18 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.commands.SpinIntakeCommand;
 import frc.robot.commands.SpinShooterCommand;
 import frc.robot.commands.TankDriveCommand;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.RomiDrivetrain;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,6 +32,7 @@ public class RobotContainer {
   private final RomiDrivetrain m_romiDrivetrain = new RomiDrivetrain();
   private final Joystick joystick = new Joystick(0);
   private final Shooter shooter = new Shooter(ShooterConstants.upperID, ShooterConstants.lowerID);
+  private final Intake intake = new Intake(IntakeConstants.motorID);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -41,6 +48,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     m_romiDrivetrain.setDefaultCommand(new TankDriveCommand(m_romiDrivetrain, () -> joystick.getRawAxis(0), () -> joystick.getRawAxis(5)));
+    intake.setDefaultCommand(new SpinIntakeCommand(intake, IntakeConstants.intakeSpeed));
   }
 
   /**
@@ -50,9 +58,9 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new SpinShooterCommand(shooter, ShooterConstants.upperSpeed, ShooterConstants.lowerSpeed).withTimeout(3).andThen(new TankDriveCommand(m_romiDrivetrain, DriveConstants.leftSpeed, DriveConstants.rightSpeed).withTimeout(5));
-
+    return new PathPlannerAuto("Example Path");
   }
 
+  
 
 }
