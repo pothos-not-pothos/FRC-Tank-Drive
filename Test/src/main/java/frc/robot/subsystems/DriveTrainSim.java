@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class DriveTrainSim extends SubsystemBase {
+public class DriveTrainSim implements DriveTrainIO {
 
   private final DifferentialDrivetrainSim simDriveTrain;
   /** Creates a new DriveTrainSim. */
@@ -24,4 +24,14 @@ public class DriveTrainSim extends SubsystemBase {
     simDriveTrain.update(0.02);
     // This method will be called once per scheduler run
   }
+
+  public void updateInputs(DriveTrainIOInputs inputs){
+    inputs.leftPosition = getLeftPositionMeters();
+    inputs.leftAmp = getLeftCurrentDrawAmps();
+    inputs.leftVelocity = getLeftVelocityMetersPerSecond();
+    inputs.rightPosition = getRightPositionMeters();
+    inputs.rightAmp = getRightCurrentDrawAmps();
+    inputs.rightVelocity = getRightVelocityMetersPerSecond();
+  }
+  
 }
