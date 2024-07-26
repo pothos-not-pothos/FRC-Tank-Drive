@@ -4,8 +4,11 @@
 
 package frc.robot.subsystems;
 
+import org.littletonrobotics.junction.AutoLog;
+
 /** Add your docs here. */
 public interface DriveTrainIO {
+    @AutoLog
     public class DriveTrainIOInputs{
         public double leftPosition = 0;
         public double leftVoltage = 0;
@@ -21,5 +24,6 @@ public interface DriveTrainIO {
     public abstract void tankDrive(double leftSpeed, double rightSpeed);
     public abstract void periodic();
     public abstract void updateInputs(DriveTrainIOInputs inputs);
+    public abstract void stopDrive();
 
 }

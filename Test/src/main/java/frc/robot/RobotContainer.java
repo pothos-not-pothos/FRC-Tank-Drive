@@ -15,8 +15,10 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.SpinIntakeCommand;
 import frc.robot.commands.SpinShooterCommand;
 import frc.robot.commands.TankDriveCommand;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.DriveTrainSim;
+import frc.robot.subsystems.DriveTrainSparkMax;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.RomiDrivetrain;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -29,13 +31,23 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final RomiDrivetrain m_romiDrivetrain = new RomiDrivetrain();
+  private final DriveTrain m_romiDrivetrain;
   private final Joystick joystick = new Joystick(0);
   private final Shooter shooter = new Shooter(ShooterConstants.upperID, ShooterConstants.lowerID);
   private final Intake intake = new Intake(IntakeConstants.motorID);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    if (Robot.isReal()){
+     DriveTrainSparkMax real = new DriveTrainSparkMax();
+     m_romiDrivetrain = new DriveTrain(real);
+    }
+    else {
+      DriveTrainSim notReal = new DriveTrainSim();
+      m_romiDrivetrain = new DriveTrain(notReal);
+    }
+    
+
     // Configure the button bindings
     configureButtonBindings();
   }

@@ -4,6 +4,10 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrainSim implements DriveTrainIO {
@@ -19,6 +23,10 @@ public class DriveTrainSim implements DriveTrainIO {
     simDriveTrain.setInputs(leftSpeed, rightSpeed);
   }
 
+  public void stopDrive(){
+    simDriveTrain.setInputs(0, 0);
+  }
+
   @Override
   public void periodic() {
     simDriveTrain.update(0.02);
@@ -26,12 +34,12 @@ public class DriveTrainSim implements DriveTrainIO {
   }
 
   public void updateInputs(DriveTrainIOInputs inputs){
-    inputs.leftPosition = getLeftPositionMeters();
-    inputs.leftAmp = getLeftCurrentDrawAmps();
-    inputs.leftVelocity = getLeftVelocityMetersPerSecond();
-    inputs.rightPosition = getRightPositionMeters();
-    inputs.rightAmp = getRightCurrentDrawAmps();
-    inputs.rightVelocity = getRightVelocityMetersPerSecond();
+    inputs.leftPosition = simDriveTrain.getLeftPositionMeters();
+    inputs.leftAmp = simDriveTrain.getLeftCurrentDrawAmps();
+    inputs.leftVelocity = simDriveTrain.getLeftVelocityMetersPerSecond();
+    inputs.rightPosition = simDriveTrain.getRightPositionMeters();
+    inputs.rightAmp = simDriveTrain.getRightCurrentDrawAmps();
+    inputs.rightVelocity = simDriveTrain.getRightVelocityMetersPerSecond();
   }
   
 }

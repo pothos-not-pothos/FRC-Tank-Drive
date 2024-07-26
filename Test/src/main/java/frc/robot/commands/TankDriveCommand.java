@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.RomiDrivetrain;
+import frc.robot.subsystems.DriveTrain;
 
 import java.util.function.Supplier;
 
@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
 public class TankDriveCommand extends Command {
-  private final RomiDrivetrain drivetrain;
+  private final DriveTrain drivetrain;
   private final Supplier<Double> leftSupplier;
   private final Supplier<Double> rightSupplier;
   /**
@@ -20,7 +20,7 @@ public class TankDriveCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public TankDriveCommand(RomiDrivetrain subsystem, Supplier<Double> leftSupplier, Supplier<Double> rightSupplier) {
+  public TankDriveCommand(DriveTrain subsystem, Supplier<Double> leftSupplier, Supplier<Double> rightSupplier) {
     drivetrain = subsystem;
     this.leftSupplier = leftSupplier;
     this.rightSupplier = rightSupplier;
@@ -29,7 +29,7 @@ public class TankDriveCommand extends Command {
     addRequirements(drivetrain);
   }
 
-  public TankDriveCommand(RomiDrivetrain subsystem, double leftSpeed, double rightSpeed){
+  public TankDriveCommand(DriveTrain subsystem, double leftSpeed, double rightSpeed){
     this(subsystem, ()-> leftSpeed, ()-> rightSpeed);
   }
 

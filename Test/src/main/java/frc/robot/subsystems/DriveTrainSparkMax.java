@@ -4,29 +4,15 @@
 
 package frc.robot.subsystems;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.util.ReplanningConfig;
-
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
-public interface DriveTrainSparkMax implements DriveTrainIO {
+public class DriveTrainSparkMax implements DriveTrainIO {
 
   private static final double kCountsPerRevolution = 1440.0;
   private static final double kWheelDiameterInch = 2.75591; // 70 mm
-
-  private final DifferentialDriveOdometry odometry= new DifferentialDriveOdometry(new Rotation2d(0),0, 0);
-  private final DifferentialDriveKinematics kinematics= new DifferentialDriveKinematics(0.141);
 
   // The Romi has the left and right motors set to
   // PWM channels 0 and 1 respectively
