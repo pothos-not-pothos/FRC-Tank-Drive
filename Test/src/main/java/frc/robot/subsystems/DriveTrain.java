@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.ReplanningConfig;
 
@@ -14,6 +16,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -98,11 +101,12 @@ public class DriveTrain extends SubsystemBase {
    IO.periodic();// This method will be called once per scheduler run
    IO.updateInputs(inputs);
    field.setRobotPose(getPose());
-   Twist2d angle = kinematics.toTwist2d(getLeftDistanceInch()/12, getRightDistanceInch()/12);
-   gyroAngle=gyroAngle+angle.dtheta;
+   Twist2d angle = kinematics.toTwist2d(Units.inchesToMeters(getLeftDistanceInch()), Units.inchesToMeters(getRightDistanceInch()));
+   gyroAngle=angle.dtheta;
    odometry.update(new Rotation2d(gyroAngle), getLeftDistanceInch()/12, getRightDistanceInch()/12);
    SmartDashboard.putData(field);
-
+   Logger.recordOutput("Pose", getPose());
+   Logger.recordOutput("gyroAngle", gyroAngle);
   }
 
   
